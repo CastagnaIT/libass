@@ -397,7 +397,18 @@ char *parse_tags(ASS_Renderer *render_priv, char *p, char *end, double pwr,
                 render_priv->state.blur = val;
             } else
                 render_priv->state.blur = 0.0;
-            // ASS standard tags
+        // Kodi custom tags
+        } else if (tag("margins")) {
+            if (nargs == 3) {
+                int mLeft, mRight, mVertical;
+                mLeft = argtoi(args[0]);
+                mRight = argtoi(args[1]);
+                mVertical = argtoi(args[2]);
+                render_priv->state.style->MarginL = mLeft;
+                render_priv->state.style->MarginR = mRight;
+                render_priv->state.style->MarginV = mVertical;
+            }
+        // ASS standard tags
         } else if (tag("fscx")) {
             double val;
             if (nargs) {
