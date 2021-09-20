@@ -1306,8 +1306,11 @@ char* read_fileW(ASS_Library* library, wchar_t* fname, DWORD fileSize, size_t* b
     if (hFile == INVALID_HANDLE_VALUE)
         return NULL;
 
-    if (fileSize == 0)
-        fileSize = GetFileSize(hFile, NULL);
+    if (fileSize == 0) {
+        LARGE_INTEGER size;
+        GetFileSizeEx(hFile, &size);
+        fileSize = size.LowPart;
+    }
 
     char* buf = (char*)malloc(fileSize); //room for null
     if (TRUE != ReadFile(hFile, (void*)buf, fileSize, 0, NULL))
