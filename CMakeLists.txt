@@ -20,7 +20,7 @@ else()
   set(VCS_TAG "")
 endif()
 
-add_library(libass 
+add_library(libass SHARED
   libass/ass_bitmap.c
   libass/ass_bitmap.h
   libass/ass_blur.c
